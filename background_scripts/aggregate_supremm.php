@@ -167,7 +167,6 @@ try
     }
     else
     {
-        $dwi->initializeAggregation();
         $dwi->aggregate('SupremmTimeseriesAggregator', $start_date, $end_date, $append_to_tables, true);
     }
 
