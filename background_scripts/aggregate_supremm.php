@@ -93,9 +93,9 @@ function getappend()
 
 $args = getopt(implode('', array_keys($options)), $options);
 
-foreach ($args as $arg => $value) 
+foreach ($args as $arg => $value)
 {
-    switch ($arg) 
+    switch ($arg)
     {
         case 'a':
         case 'append':
@@ -143,7 +143,7 @@ try
 
     $append_to_tables = getappend();
 
-    if( $useetllog ) 
+    if( $useetllog )
     {
         $db = DB::factory('datawarehouse', false);
         $db->handle()->beginTransaction();
@@ -157,7 +157,6 @@ try
             $start_date = $minMaxTS[0]['min_date'];
             $end_date = $minMaxTS[0]['max_date'];
 
-            $dwi->initializeAggregation();
             $dwi->aggregate('SupremmTimeseriesAggregator', $start_date, $end_date, $append_to_tables, true);
 
             foreach($logIds as $logId)
@@ -165,8 +164,8 @@ try
                 $db->execute('update modw_etl.log set aggregated = 1 where id = :id', array('id' => $logId['id']));
             }
         }
-    } 
-    else 
+    }
+    else
     {
         $dwi->initializeAggregation();
         $dwi->aggregate('SupremmTimeseriesAggregator', $start_date, $end_date, $append_to_tables, true);
@@ -186,5 +185,3 @@ catch (\Exception $e) {
         'stacktrace' => $e->getTraceAsString()
     ));
 }
-
-

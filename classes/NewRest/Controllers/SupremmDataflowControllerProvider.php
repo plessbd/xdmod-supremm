@@ -264,7 +264,7 @@ class SupremmDataflowControllerProvider extends BaseControllerProvider
     private function queryJobFact($resourceid)
     {
         $pdo = DB::factory('database');
-        $query = 'SELECT count(*) as count, min(end_time_ts) as earliest, max(end_time_ts) as recent FROM `modw`.`jobfact` WHERE resource_id = :id';
+        $query = 'SELECT count(*) as count, min(end_time_ts) as earliest, max(end_time_ts) as recent FROM `modw`.`job_tasks` WHERE resource_id = :id';
 
         try {
             $res = $pdo->query($query, array('id' => $resourceid));
