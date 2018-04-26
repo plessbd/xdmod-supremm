@@ -628,7 +628,7 @@ module.exports = {
                 sql: 'coalesce(sum(' + wallduration_case_statement + '),0)',
                 comments: 'The wall_time of the jobs that were running during this period. This will only count the walltime of the jobs that fell during the period.',
                 stats: [{
-                    sql: 'coalesce(sum(jf.wall_time*jf.cores/3600.0),0)',
+                    sql: 'coalesce(sum(jf.wall_time*jf.cores),0)/3600.0',
                     label: 'CPU Hours: Total',
                     unit: 'CPU Hour',
                     description: 'The total core time, in hours.<br/>'
@@ -636,7 +636,7 @@ module.exports = {
                     decimals: 0
                 }, {
                     name: 'wall_time_per_job',
-                    sql: 'coalesce(sum(jf.wall_time/3600.0)/sum(case when :timeseries then jf.running_job_count else jf.job_count end),0)',
+                    sql: 'coalesce(sum(jf.wall_time)/sum(case when :timeseries then jf.running_job_count else jf.job_count end),0)/3600.0',
                     label: 'Wall Hours: Per Job',
                     unit: 'Hour',
                     description: 'The average time, in hours, a job takes to execute.<br/>'
@@ -663,7 +663,7 @@ module.exports = {
                 sql: 'coalesce(sum(' + getDistributionSQLCaseStatement('requested_wall_time', ':seconds', 'start_time_ts', 'end_time_ts', ":period_start_ts", ":period_end_ts") + '),0)',
                 comments: 'The requested wall time of the jobs that were running during this period. This will only count the walltime of the jobs that fell during the period.',
                 stats: [{
-                    sql: 'coalesce(sum(jf.requested_wall_time/3600.0),0)',
+                    sql: 'coalesce(sum(jf.requested_wall_time),0)/3600.0',
                     label: 'Wall Hours: Requested: Total',
                     unit: 'Hour',
                     description: 'The total time, in hours, jobs requested for execution.<br/>'
@@ -671,7 +671,7 @@ module.exports = {
                     decimals: 0
                 }, {
                     name: 'requested_wall_time_per_job',
-                    sql: 'coalesce(sum(jf.requested_wall_time/3600.0)/sum(case when :timeseries then jf.running_job_count else jf.job_count end),0)',
+                    sql: 'coalesce(sum(jf.requested_wall_time)/sum(case when :timeseries then jf.running_job_count else jf.job_count end),0)/3600.0',
                     label: 'Wall Hours: Requested: Per Job',
                     unit: 'Hour',
                     description: 'The average time, in hours, a job requested for execution.<br/>'
@@ -698,7 +698,7 @@ module.exports = {
                 sql: 'coalesce(sum(' + getIf('start_time_ts between :period_start_ts and :period_end_ts', 'wait_time', 0) + '),0)',
                 comments: 'The amount of time jobs waited to execute during this period.',
                 stats: [{
-                    sql: 'coalesce(sum(jf.wait_time/3600.0),0)',
+                    sql: 'coalesce(sum(jf.wait_time),0)/3600.0',
                     weightStat: 'started_job_count',
                     label: 'Wait Hours: Total',
                     unit: 'Hour',
@@ -706,7 +706,7 @@ module.exports = {
                                 + '<i>Wait Time: </i>Wait time is defined as the linear time between submission of a job by a user until it begins to execute.'
                 }, {
                     name: 'wait_time_per_job',
-                    sql: 'coalesce(sum(jf.wait_time/3600.0)/sum(jf.started_job_count),0)',
+                    sql: 'coalesce(sum(jf.wait_time)/sum(jf.started_job_count),0)/3600.0',
                     label: 'Wait Hours: Per Job',
                     unit: 'Hour',
                     description: 'The average time, in hours, a job waits before execution on the designated resource.<br/>'
@@ -780,7 +780,7 @@ module.exports = {
                 sql: getSumMetric('cpu_time*cpu_idle'),
                 comments: 'The amount of the idle cpu_time of the jobs pertaining to this period.',
                 stats: [ {
-                    sql: 'sum(jf.cpu_time_idle/3600.0)',
+                    sql: 'sum(jf.cpu_time_idle)/3600.0',
                     label: 'CPU Hours: Idle: Total',
                     unit: 'CPU Hour',
                     requirenotnull: 'jf.cpu_time_idle',
@@ -819,7 +819,7 @@ module.exports = {
                 sql: getSumMetric('cpu_time*cpu_system'),
                 comments: 'The amount of the system cpu_time of the jobs pertaining to this period.',
                 stats: [ {
-                    sql: 'sum(jf.cpu_time_system/3600.0)',
+                    sql: 'sum(jf.cpu_time_system)/3600.0',
                     label: 'CPU Hours: System: Total',
                     requirenotnull: 'jf.cpu_time_system',
                     unit: 'CPU Hour',
@@ -858,7 +858,7 @@ module.exports = {
                 sql: getSumMetric('cpu_time*cpu_user'),
                 comments: 'The amount of the user cpu_time of the jobs pertaining to this period.',
                 stats: [ {
-                    sql: 'sum(jf.cpu_time_user/3600.0)',
+                    sql: 'sum(jf.cpu_time_user)/3600.0',
                     label: 'CPU Hours: User: Total',
                     requirenotnull: 'jf.cpu_time_user',
                     unit: 'CPU Hour',

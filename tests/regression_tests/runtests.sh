@@ -38,17 +38,17 @@ export REG_TEST_BASE="/../../../tests/artifacts/xdmod-test-artifacts/xdmod-supre
 
 if [ "$REG_TEST_ALL" == "1" ]; then
     set +e
-    REG_TEST_USER_ROLE=usr $phpunit $REGUSER ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/
-    REG_TEST_USER_ROLE=pi $phpunit $PI ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/
-    REG_TEST_USER_ROLE=cd $phpunit $CD ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/
-    REG_TEST_USER_ROLE=cs $phpunit $CS ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/
-    $phpunit $PUB ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/
+    REG_TEST_USER_ROLE=usr $phpunit $REGUSER lib/Controllers/SupremmUsageExplorerTest.php
+    REG_TEST_USER_ROLE=pi $phpunit $PI lib/Controllers/SupremmUsageExplorerTest.php
+    REG_TEST_USER_ROLE=cd $phpunit $CD lib/Controllers/SupremmUsageExplorerTest.php
+    REG_TEST_USER_ROLE=cs $phpunit $CS lib/Controllers/SupremmUsageExplorerTest.php
+    $phpunit $PUB lib/Controllers/SupremmUsageExplorerTest.php
 else
-    REG_TEST_USER_ROLE=usr $phpunit $REGUSER ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/ & usrpid=$!
-    REG_TEST_USER_ROLE=pi $phpunit $PI ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/ & pipid=$!
-    REG_TEST_USER_ROLE=cd $phpunit $CD ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/ & cdpid=$!
-    REG_TEST_USER_ROLE=cs $phpunit $CS ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/ & cspid=$!
-    $phpunit $PUB ../../../xdmod/open_xdmod/modules/xdmod/regression_tests/ & pubpid=$!
+    REG_TEST_USER_ROLE=usr $phpunit $REGUSER lib/Controllers/SupremmUsageExplorerTest.php & usrpid=$!
+    REG_TEST_USER_ROLE=pi $phpunit $PI lib/Controllers/SupremmUsageExplorerTest.php & pipid=$!
+    REG_TEST_USER_ROLE=cd $phpunit $CD lib/Controllers/SupremmUsageExplorerTest.php & cdpid=$!
+    REG_TEST_USER_ROLE=cs $phpunit $CS lib/Controllers/SupremmUsageExplorerTest.php & cspid=$!
+    $phpunit $PUB lib/Controllers/SupremmUsageExplorerTest.php & pubpid=$!
 
     EXIT_STATUS=0
     for pid in $usrpid $pipid $cdpid $cspid $pubpid;
