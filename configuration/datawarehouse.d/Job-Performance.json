@@ -1,0 +1,17 @@
+{
+    "SUPREMM": {
+        "aggregate_schema": "modw_aggregates",
+        "aggregate_table_alias": "agg",
+        "aggregate_table_prefix": "supremmfact_by_",
+        "datasource": "SUPREMM",
+        "group_bys": {
+            "$ref": "datawarehouse.d/ref/Job-Performance-group-bys.json"
+        },
+        "module": "xdmod",
+        "name": "Job Performance",
+        "order": 1,
+        "statistics": {
+            "$ref": "datawarehouse.d/ref/Job-Performance-statistics.json"
+        }
+    }
+}

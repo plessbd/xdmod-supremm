@@ -41,6 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xdmod/
 %{_datadir}/xdmod/
 %{_sysconfdir}/xdmod/etl/
+%{_sysconfdir}/xdmod/datawarehouse.d/ref/
 %{_docdir}/%{name}-%{version}__PRERELEASE__/
 %{_sysconfdir}/xdmod/modules.d/supremm.json
 %{_sysconfdir}/xdmod/assets.d/supremm.json
